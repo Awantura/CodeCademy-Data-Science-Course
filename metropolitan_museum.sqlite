@@ -1,0 +1,57 @@
+-- 1.
+select *
+from met
+limit 10;
+
+-- 2.
+select count(*) as num_pieces
+from met;
+
+-- 3.
+select count(*) as num_celery
+from met
+where category like '%celery%';
+
+-- 4.
+select min(date)
+from met;
+
+select date, title, medium
+from met
+where date like '%1600%';
+
+-- 5.
+select country, count(*) as num_pieces
+from met
+where country is not null
+group by 1
+order by 2 desc
+limit 10;
+
+-- 6.
+select category, count(*) as num_pieces
+from met
+where country is not null
+group by 1
+having count(*) > 100
+order by 2 desc;
+
+-- 7.
+-- solution 1.
+select medium, count(*) as num_pieces
+from met
+where medium like '%gold%'
+  or medium like '%silver%'
+group by 1
+order by 2 desc;
+
+-- solution 2.
+select case
+    when medium like '%gold%' then 'Gold'
+    when medium like '%silver%' then 'Silver'
+    else null
+ end as 'Material', count(*) as num_pieces
+ from met
+ where Material is not null
+ group by 1
+ order by 2 desc;
